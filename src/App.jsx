@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import Notification from './components/Notification'
+import BlogForm from './components/BlogForm'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import '../index.css'
@@ -14,6 +15,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [user, setUser] = useState(null)
+  const [blogVisible, setBlogVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -95,32 +97,30 @@ const App = () => {
     setNewBlogUrl(event.target.value)
   }
 
-  const blogForm = () => (
-    <form onSubmit={addBlog}>
+  const blogForm = () => {
+    const hideWhenVisible = { display: blogVisible ? 'none' : '' }
+    const showWhenVisible = { display: blogVisible ? '' : 'none' }
+
+    return (
       <div>
-        title:
-        <input
-          value={newBlog}
-          onChange={handleBlogChange}
-        />
+        <div style={hideWhenVisible}>
+          <button onClick={() => setBlogVisible(true)}>create blog</button>
+        </div>
+        <div style={showWhenVisible}>
+          <BlogForm
+            newBlog={newBlog}
+            newBlogAuthor={newBlogAuthor}
+            newBlogUrl={newBlogUrl}
+            handleBlogChange={({ target }) => setNewBlog(target.value)}
+            handleAuthorChange={({ target }) => setNewBlogAuthor(target.value)}
+            handleUrlChange={({ target }) => setNewBlogUrl(target.value)}
+            handleSubmit={addBlog}
+          />
+          <button onClick={() => setBlogVisible(false)}>cancel</button>
+        </div>
       </div>
-      <div>
-        author:
-        <input
-          value={newBlogAuthor}
-          onChange={handleAuthorChange}
-        />
-      </div>
-      <div>
-        url:
-        <input
-          value={newBlogUrl}
-          onChange={handleUrlChange}
-        />
-      </div>
-      <button type="submit">create</button>
-    </form>  
-  )
+    )
+  }
 
   if (user === null) {
     return (
