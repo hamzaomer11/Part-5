@@ -125,7 +125,7 @@ const App = () => {
   if (user === null) {
     return (
         <div>
-          <Notification message={errorMessage}/>
+          <Notification message={errorMessage} type='error'/>
           <h2>Log in to application</h2>
           <form onSubmit={handleLogin}>
           <div>
@@ -155,10 +155,11 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      <Notification message={errorMessage}/>
+      <Notification message={errorMessage} type='success'/>
       <p>{user.name} logged-in <button onClick={handleLogOut}>logout</button></p>
       <h3>Create New</h3>
       {user !== null && blogForm()}
+      <br />
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}

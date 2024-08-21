@@ -1,18 +1,10 @@
-const Notification = ({ message }) => {
+const Notification = ({ message, type }) => {
     if (message === null) {
       return null
     }
-
-    if(message.includes('added')) {
-        return (
-            <div className='addMsg'>
-              {message}
-            </div>
-        )
-    }
   
     return (
-      <div className='error'>
+      <div className={type}>
         {message}
       </div>
     )
