@@ -85,18 +85,6 @@ const App = () => {
       })
   }
 
-  const handleBlogChange = (event) => {
-    setNewBlog(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setNewBlogAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setNewBlogUrl(event.target.value)
-  }
-
   const blogForm = () => {
     const hideWhenVisible = { display: blogVisible ? 'none' : '' }
     const showWhenVisible = { display: blogVisible ? '' : 'none' }
