@@ -27,11 +27,11 @@ const Blog = ({ blog }) => {
       <div style={showWhenVisible}>
         {blog.title} <button onClick={toggleVisibility}>hide</button>
         <br />
-        {blog.author} 
+        {blog.url} 
         <br />
-        {blog.url}
+        likes {blog.likes} <button>like</button>
         <br />
-        {blog.likes} <button>like</button>
+        {blog.author}
       </div>
   </div>
 )}
