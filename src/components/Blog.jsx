@@ -22,14 +22,18 @@ const Blog = ({ blog, updateObject }) => {
 
   const updateBlog = () => {
     updateObject = {
-      likes: 1
-    }
+    title: blog.title,
+    author: blog.author,
+    url: blog.url,
+    likes: 1,
+    user: blog.user.id
+  }
     console.log(blog.id)
     blogService
       .update(blog.id, updateObject)
         .then(returnedBlog => {
           console.log(returnedBlog, 'response')
-        setBlogs(blogs.concat(returnedBlog))
+        setBlogs(blogs.map(blog => blog.id != returnedBlog.id ? blog : returnedBlog))
       })
   }
 
