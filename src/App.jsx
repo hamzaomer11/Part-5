@@ -91,15 +91,18 @@ const App = () => {
     }
   }
 
-  const userDeleteBlog = (blogs) => {
+  /* const userDeleteBlog = (blogs) => {
     for(const i in blogs) {
-      if(user?.id === blogs[i]?.id) {
+      console.log(blogs[i]?.user, 'blogs')
+      if(user?.id === blogs[i]?.user) {
         return true
       }
     }
-  } 
+  } */ 
 
   console.log(blogs, 'blogs')
+  console.log(user, 'user')
+  
 
   if (user === null) {
     return (
@@ -142,7 +145,7 @@ const App = () => {
       <br />
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} updateBlog={updateBlog} 
-        deleteBlog={deleteBlog} canUserDelete={userDeleteBlog(blog)} />
+        deleteBlog={deleteBlog} canUserDelete={user.id === blog?.user?.id} />
       )}
     </div>
   )
