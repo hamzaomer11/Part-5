@@ -91,6 +91,16 @@ const App = () => {
     }
   }
 
+  const userDeleteBlog = (blogs) => {
+    for(const i in blogs) {
+      if(user?.id === blogs[i]?.id) {
+        return true
+      }
+    }
+  } 
+
+  console.log(blogs, 'blogs')
+
   if (user === null) {
     return (
         <div>
@@ -131,7 +141,8 @@ const App = () => {
       </Togglable>
       <br />
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} 
+        deleteBlog={deleteBlog} canUserDelete={userDeleteBlog(blog)} />
       )}
     </div>
   )

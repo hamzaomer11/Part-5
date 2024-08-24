@@ -1,7 +1,6 @@
 import { useState } from "react"
-import login from "../services/login"
 
-const Blog = ({ blog, updateBlog, deleteBlog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog, canUserDelete }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -50,8 +49,8 @@ const Blog = ({ blog, updateBlog, deleteBlog }) => {
         <br />
         {blog.author}
         <br />
-        {login === blog.user &&
-          <button onClick={removeBlog}>remove</button>}
+        {canUserDelete && 
+        <button onClick={removeBlog}>remove</button>}
       </div>
   </div>
 )}
