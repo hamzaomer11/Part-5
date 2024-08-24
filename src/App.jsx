@@ -72,6 +72,16 @@ const App = () => {
       })
   }
 
+  const updateBlog = (updateObject) => {
+    console.log(updateObject.id, 'updateObject.id')
+    blogService
+      .update(updateObject.id, updateObject)
+        .then(returnedBlog => {
+          console.log(returnedBlog, 'response')
+        setBlogs(blogs.map(blog => blog.id != returnedBlog.id ? blog : returnedBlog))
+      })
+  }
+
   if (user === null) {
     return (
         <div>
@@ -112,7 +122,7 @@ const App = () => {
       </Togglable>
       <br />
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
       )}
     </div>
   )
