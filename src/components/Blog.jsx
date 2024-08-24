@@ -1,6 +1,7 @@
 import { useState } from "react"
+import login from "../services/login"
 
-const Blog = ({ blog, updateBlog }) => {
+const Blog = ({ blog, updateBlog, deleteBlog }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -25,6 +26,15 @@ const Blog = ({ blog, updateBlog }) => {
     })
   }
 
+  const removeBlog = () => {
+    deleteBlog({
+      title: blog.title,
+      author: blog.author,
+      id: blog.id,
+      user: blog.user
+    })
+  }
+
   return (
     <div style={blogStyle}>
       <div style={hideWhenVisible}>
@@ -39,6 +49,9 @@ const Blog = ({ blog, updateBlog }) => {
         likes {blog.likes} <button onClick={addLikes}>like</button>
         <br />
         {blog.author}
+        <br />
+        {login === blog.user &&
+          <button onClick={removeBlog}>remove</button>}
       </div>
   </div>
 )}

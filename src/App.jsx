@@ -73,13 +73,22 @@ const App = () => {
   }
 
   const updateBlog = (updateObject) => {
-    console.log(updateObject.id, 'updateObject.id')
     blogService
       .update(updateObject.id, updateObject)
         .then(returnedBlog => {
-          console.log(returnedBlog, 'response')
         setBlogs(blogs.map(blog => blog.id != returnedBlog.id ? blog : returnedBlog))
       })
+  }
+
+  const deleteBlog = (deleteObject) => {
+    const ok = window.confirm(`Remove blog ${deleteObject.title} by ${deleteObject.author}?`)
+    if (ok) {
+      blogService
+      .remove(deleteObject.id)
+      .then(() => {
+        setBlogs(blogs.filter(blog => blog.id !== deleteObject.id))
+      })
+    }
   }
 
   if (user === null) {
@@ -122,7 +131,7 @@ const App = () => {
       </Togglable>
       <br />
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}/>
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
       )}
     </div>
   )
