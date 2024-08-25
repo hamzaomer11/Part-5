@@ -91,19 +91,6 @@ const App = () => {
     }
   }
 
-  /* const userDeleteBlog = (blogs) => {
-    for(const i in blogs) {
-      console.log(blogs[i]?.user, 'blogs')
-      if(user?.id === blogs[i]?.user) {
-        return true
-      }
-    }
-  } */ 
-
-  console.log(blogs, 'blogs')
-  console.log(user, 'user')
-  
-
   if (user === null) {
     return (
         <div>
