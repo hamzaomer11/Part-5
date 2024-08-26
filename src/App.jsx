@@ -9,7 +9,7 @@ import '../index.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
@@ -19,7 +19,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs.sort((a, b) => {return b.likes - a.likes}))
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    
+
     try {
       const user = await loginService.login({
         username, password,
@@ -66,7 +66,7 @@ const App = () => {
     BlogFormRef.current.toggleVisibility()
     blogService
       .create(blogObject)
-        .then(returnedBlog => {
+      .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
         setErrorMessage(`a new blog ${blogObject.title} by ${blogObject.author} added`)
       })
@@ -75,8 +75,8 @@ const App = () => {
   const updateBlog = (updateObject) => {
     blogService
       .update(updateObject.id, updateObject)
-        .then(returnedBlog => {
-        setBlogs(blogs.map(blog => blog.id != returnedBlog.id ? blog : returnedBlog))
+      .then(returnedBlog => {
+        setBlogs(blogs.map(blog => blog.id !== returnedBlog.id ? blog : returnedBlog))
       })
   }
 
@@ -84,22 +84,22 @@ const App = () => {
     const ok = window.confirm(`Remove blog ${deleteObject.title} by ${deleteObject.author}?`)
     if (ok) {
       blogService
-      .remove(deleteObject.id)
-      .then(() => {
-        setBlogs(blogs.filter(blog => blog.id !== deleteObject.id))
-      })
+        .remove(deleteObject.id)
+        .then(() => {
+          setBlogs(blogs.filter(blog => blog.id !== deleteObject.id))
+        })
     }
   }
 
   if (user === null) {
     return (
-        <div>
-          <Notification message={errorMessage} type='error'/>
-          <h2>Log in to application</h2>
-          <form onSubmit={handleLogin}>
+      <div>
+        <Notification message={errorMessage} type='error'/>
+        <h2>Log in to application</h2>
+        <form onSubmit={handleLogin}>
           <div>
             username
-              <input
+            <input
               type="text"
               value={username}
               name="Username"
@@ -108,7 +108,7 @@ const App = () => {
           </div>
           <div>
             password
-              <input
+            <input
               type="password"
               value={password}
               name="Password"
@@ -131,8 +131,8 @@ const App = () => {
       </Togglable>
       <br />
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} updateBlog={updateBlog} 
-        deleteBlog={deleteBlog} canUserDelete={user.username === blog.user.username} />
+        <Blog key={blog.id} blog={blog} updateBlog={updateBlog}
+          deleteBlog={deleteBlog} canUserDelete={user.username === blog.user.username} />
       )}
     </div>
   )
