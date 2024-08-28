@@ -31,10 +31,10 @@ test('clicking the button calls event handler once', async () => {
     title: "test title",
     author: "test author",
     url: "test url",
-    likes: "likes: 1"
+    likes: "1"
   }
   
-  const {container} = render(<Blog blog={blog} />)
+  const {container} = render(<Blog blog={blog}/>)
 
   const user = userEvent.setup()
   const button = screen.getByText('view')
@@ -43,7 +43,7 @@ test('clicking the button calls event handler once', async () => {
   const div = container.querySelector('.blog')
   
   expect(div).toHaveTextContent(
-    'likes: 1'
+    '1'
   )
 
   expect(div).toHaveTextContent(
