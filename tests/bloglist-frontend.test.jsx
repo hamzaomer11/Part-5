@@ -25,3 +25,30 @@ test('renders title & author', () => {
   screen.debug()
 
 })
+
+test('clicking the button calls event handler once', async () => {
+  const blog = {
+    title: "test title",
+    author: "test author",
+    url: "test url",
+    likes: "likes: 1"
+  }
+  
+  const {container} = render(<Blog blog={blog} />)
+
+  const user = userEvent.setup()
+  const button = screen.getByText('view')
+  await user.click(button)
+
+  const div = container.querySelector('.blog')
+  
+  expect(div).toHaveTextContent(
+    'likes: 1'
+  )
+
+  expect(div).toHaveTextContent(
+    'test url'
+  )
+
+  screen.debug()
+})
